@@ -7,6 +7,7 @@ import Navbar from "@/components/navbar";
 import PreLoader from "@/components/preLoader";
 import { bebas, striper, switzer } from "./fonts";
 import ClientLayout from "@/components/ClientLayout";
+import { Suspense } from "react";
 
 
 
@@ -39,7 +40,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${switzer.variable} ${bebas.variable} ${striper.variable} antialiased relative no-scroll`}
       >
-        <ClientLayout>{children}</ClientLayout>
+        <Suspense><ClientLayout>{children}</ClientLayout></Suspense>
       </body>
     </html>
   );
