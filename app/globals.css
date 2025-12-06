@@ -1,26 +1,117 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+*, ::before, ::after {
+  box-sizing: border-box;
 }
 
-@theme inline {
+:root {
+  --background: #f6f7f7;
+  --foreground : #1d1816;
+  --font-switzer: "Switzer",sans-serif;
+  --font-striper: "Striper",sans-serif;
+}
+
+
+
+@theme  {
   --color-background: var(--background);
-  --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --color-foreground : var(--foreground);
+  --color-secondary : #F39C12;
+  --font-bebas: var(--font-bebas);
+  --font-switzer: var(--font-switzer);
+  --font-striper: var(--font-striper);
+  --text-10xl : 150px;
+  --text-14xl : 230px;
+  --text-40: 40px;
+  --text-dev: 65px;
+  --leading-extra: 180px;
+  
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #f6f7f7;
+    --foreground: #1d1816;
   }
 }
 
 body {
   background: var(--background);
-  color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.max-width {
+  max-width: 1240px;
+}
+
+.line{
+  border: 2px solid black;
+  overflow: hidden;
+  display: block;
+  position: relative
+}
+
+.no-scroll {
+  overflow: hidden !important
+}
+
+.noise-circle {
+  background-image: url("/noise-circle.png");
+  background-size:128px 128px;
+  background-repeat: repeat;
+  mix-blend-mode: screen;
+  filter: contrast(120%) brightness(80%);
+}
+
+.noise-square {
+  background-image: url("/noise-square.png");
+  mix-blend-mode: screen;
+  background-size:256px 256px;
+  background-repeat: repeat;
+  
+}
+
+.noise-overlay {
+  background-image: url("/noise-text.png");
+  mix-blend-mode: screen; 
+  background-size:256px 256px;
+  background-repeat: repeat;
+}
+
+.noise-small-overlay {
+  background-image: url("/noise-text.png");
+  mix-blend-mode: screen; 
+  background-size:64px 64px;
+  background-repeat: repeat;
+}
+
+.noise-menu {
+  background-image: url("/noise-square.png");
+  mix-blend-mode: screen;
+  background-size:256px 256px;
+  background-repeat: repeat;
+  filter: contrast(120%) brightness(80%);
+}
+
+.noise-text {
+
+  background-image: url("/transparent-noise.png");
+  mix-blend-mode: screen;
+  filter: contrast(120%) brightness(80%);
+}
+
+
+::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+}
+
+html {
+  scrollbar-width: none;
+}
+
+body {
+  -ms-overflow-style: none;
 }
