@@ -15,7 +15,7 @@ export default function ClientHomeController() {
         }else{
             setIsLoaded(true)
         }
-    },[])
+    },[navType])
     useEffect(() => {
         if(navType !== "none") return
         if(!section) return

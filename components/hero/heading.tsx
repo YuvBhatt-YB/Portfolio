@@ -10,14 +10,9 @@ export default function Heading(){
     const isLoaded = preLoaderStore(state => state.isLoaded)
     const navType = navTypeStore(state => state.navType)
     useGSAP(async(context)=>{
-        if(navType !== "initial") {
-            gsap.set(["#f1","#f2",".small-txt"],{visibility:"visible"})
-            return
-        }
-        if(!isLoaded) {
-            gsap.set(["#f1","#f2",".small-txt"],{visibility:"hidden"})
-            return
-        }
+        gsap.set(["#f1","#f2",".small-txt"],{visibility:"hidden"})
+        if(navType !== "initial") return
+        if(!isLoaded) return
         await document.fonts.ready
         await new Promise(res => requestAnimationFrame(res))
         const f1Text = SplitText.create("#f1",{type:"chars"})

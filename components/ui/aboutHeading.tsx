@@ -41,7 +41,7 @@ export default function AboutHeading(){
         })
     },[])
     return (
-        <div id="about" ref={containerRef} className="  text-4xl md:text-7xl lg:text-8xl font-switzer font-semibold text-background bg-foreground uppercase relative  py-8 flex px-2 overflow-hidden mt-8 lg:mt-0 ">
+        <div id="about" ref={containerRef} className="  text-4xl md:text-7xl lg:text-8xl font-switzer font-semibold text-background bg-foreground uppercase relative  py-8 flex px-2 overflow-hidden mt-8  ">
             <div className=" noise-square absolute inset-0"></div>
             {[...Array(2)].map((_,i) => (
                 <div key={i} className="   flex shrink-0 marqueeItem">
