@@ -3,15 +3,16 @@
 import { projectLoaderStore} from "@/store/store"
 import gsap from "gsap"
 import { useRouter } from "next/navigation"
+import { useRef } from "react"
 
 
 export default function TransitionLink({href,className,children}:{href:string,className:string,children:React.ReactNode}){
     const router = useRouter()
-    
+    const animRef = useRef<GSAPTimeline>(null)
     const setIsLoaded = projectLoaderStore((state) => state.setIsLoaded)
     const handleClick = (e:React.MouseEvent<HTMLAnchorElement>) => {
         e.preventDefault()
-        
+        if(animRef.current) return
         document.documentElement.classList.add("no-scroll")
         document.body.classList.add("no-scroll")
         setIsLoaded(false)
@@ -23,8 +24,13 @@ export default function TransitionLink({href,className,children}:{href:string,cl
         gsap.set(".row1",{yPercent:-100,visibility:"visible"})
         gsap.set(".row2",{yPercent:100,visibility:"visible"})
 
-        const tl = gsap.timeline()
-
+        const tl = gsap.timeline({
+            onComplete:()=>{
+                animRef.current = null
+                router.push(href)
+            }
+        })
+        animRef.current = tl
         tl.to(".row1",{
             yPercent:0,
             duration:0.7,
@@ -40,12 +46,10 @@ export default function TransitionLink({href,className,children}:{href:string,cl
             force3D:true,
         },"-=0.5")
 
-        tl.call(()=>{
-            router.push(href)
-        })
+        
     }
     return (
-        <a onClick={handleClick} className={className}>
+        <a href={href} onClick={handleClick} className={className}>
             {children}
         </a>
     )

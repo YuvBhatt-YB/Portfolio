@@ -6,6 +6,7 @@ import { ScrollTrigger } from "gsap/all";
 import gsap from "gsap";
 import { useEffect, useRef } from "react";
 import Link from "next/link";
+import { navTypeStore } from "@/store/store";
 gsap.registerPlugin(ScrollTrigger)
 export default function DesktopMenu({toggleMenu}:{toggleMenu: () => void}){
     const navRef = useRef<HTMLDivElement>(null)
@@ -46,7 +47,7 @@ export default function DesktopMenu({toggleMenu}:{toggleMenu: () => void}){
         <div  className="  w-full  fixed top-0  backdrop-blur-xl  bg-background/10 border-b border-background/20 z-40 px-2 [@media(min-width:1180px)]:px-0  ">
             <div ref={navRef} className="  max-width mx-auto text-foreground flex justify-between items-center px-2 lg:px-0  " style={{paddingTop:"32px",paddingBottom:"32px"}}>
                 <div >
-                    <Link href={"/"}><h1 className=" uppercase font-semibold text-2xl font-switzer">yuv bhatt<span className=" inline-block  w-1 h-1 bg-foreground"></span></h1></Link>
+                    <Link href={"/"} onClick={() => navTypeStore.setState({navType:"initial"}) }><h1 className=" uppercase font-semibold text-2xl font-switzer">yuv bhatt<span className=" inline-block  w-1 h-1 bg-foreground"></span></h1></Link>
                 </div>
                 <div className=" flex items-center gap-6">
                     <Button content="resume" href="/resume" variant="animate" />

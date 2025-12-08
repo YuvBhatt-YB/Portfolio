@@ -4,11 +4,14 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { SplitText } from "gsap/all";
 import Image from "next/image";
+import { useRef } from "react";
 gsap.registerPlugin(SplitText)
 export default function About(){
-    
+    const hasAnimated = useRef<boolean>(false)
     useGSAP(()=>{
         (async() => {
+        if(hasAnimated.current) return
+        hasAnimated.current = true
         await document.fonts.ready
         await new Promise(res => requestAnimationFrame(res))
         const texts = gsap.utils.toArray(".texts") as HTMLElement[]

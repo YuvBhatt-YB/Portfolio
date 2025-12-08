@@ -143,6 +143,8 @@ export default function ProjectComponent(){
             const containers = gsap.utils.toArray(".container") as HTMLElement[];
             if (containers.length === 0) return;
             containers.forEach((container, i) => {
+              if(container.dataset.split === "done") return
+              container.dataset.split = "done"
               const topTxt = container.querySelector(".topTxt");
               const bottomTxt = container.querySelector(".bottomTxt");
               const techStack =

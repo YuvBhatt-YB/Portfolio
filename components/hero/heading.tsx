@@ -4,15 +4,28 @@ import { navTypeStore, preLoaderStore } from "@/store/store"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import { SplitText } from "gsap/all"
+import { useRef } from "react"
 
 gsap.registerPlugin(SplitText)
 export default function Heading(){
     const isLoaded = preLoaderStore(state => state.isLoaded)
     const navType = navTypeStore(state => state.navType)
+    const hasAnimatedRef = useRef<boolean>(false)
     useGSAP(async(context)=>{
-        gsap.set(["#f1","#f2",".small-txt"],{visibility:"hidden"})
-        if(navType !== "initial") return
-        if(!isLoaded) return
+        
+        
+
+        if(navType !== "initial") {
+            gsap.set(["#f1","#f2",".small-txt"],{visibility:"visible"})
+            return
+        }
+        if(!isLoaded){
+            gsap.set(["#f1","#f2",".small-txt"],{visibility:"hidden"})
+            return
+        }
+        if(hasAnimatedRef.current) return
+        hasAnimatedRef.current = true
+
         await document.fonts.ready
         await new Promise(res => requestAnimationFrame(res))
         const f1Text = SplitText.create("#f1",{type:"chars"})

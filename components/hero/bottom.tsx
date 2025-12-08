@@ -15,15 +15,19 @@ export default function Bottom(){
     const t2 = useRef<HTMLDivElement>(null)
     const bottomCnt = useRef<HTMLDivElement>(null)
     const navType = navTypeStore(state => state.navType)
+    const hasAnimatedRef = useRef<boolean>(false)
     useGSAP(async(ctx)=>{
-      if(navType !== "initial"){
-        gsap.set([t1.current,t2.current,"#line",bottomCnt.current],{visibility:"visible"})
-        return
+      
+      if(navType !== "initial") {
+            gsap.set([t1.current,t2.current,"#line",bottomCnt.current],{visibility:"visible"})
+            return
       }
-      if(!isLoaded) {
+      if(!isLoaded){
             gsap.set([t1.current,t2.current,"#line",bottomCnt.current],{visibility:"hidden"})
             return
       }
+      if(hasAnimatedRef.current) return
+      hasAnimatedRef.current = true
       await document.fonts.ready
       await new Promise(res => requestAnimationFrame(res))
       const t1Split = SplitText.create(t1.current,{type:"words"})
