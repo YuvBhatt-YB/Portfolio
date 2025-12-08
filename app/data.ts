@@ -2,7 +2,7 @@ export const projects = [
     {
         pId:1,
         project_name:"predix",
-        project_img:"/project/project-1.jpg",
+        project_img:"/project/project-1.webp",
         project_main_img:"/project-1/main.jpg",
         slider_imgs: ["/project-1/slider/img-1.jpg","/project-1/slider/img-2.jpg","/project-1/slider/img-3.jpg","/project-1/slider/img-4.jpg","/project-1/slider/img-5.jpg"],
         stack:["React","Node.js","Express.js","Prisma","PostgreSQL","Redis","Typescript"],
@@ -11,7 +11,7 @@ export const projects = [
     {
         pId:2,
         project_name:"project 2",
-        project_img:"/project/project-2.jpg",
+        project_img:"/project/project-2.webp",
         project_main_img:"/project-2/main.jpg",
         slider_imgs: ["/project-2/slider/img-1.jpg","/project-2/slider/img-2.jpg","/project-2/slider/img-3.jpg","/project-2/slider/img-4.jpg","/project-2/slider/img-5.jpg"],
         stack:["Next.js","Prisma","MongoDB","Redis","Typescript"],
@@ -20,7 +20,7 @@ export const projects = [
     {
         pId:3,
         project_name:"project 3",
-        project_img:"/project/project-3.jpg",
+        project_img:"/project/project-3.webp",
         project_main_img:"/project-3/main.jpg",
         slider_imgs: ["/project-3/slider/img-1.jpg","/project-3/slider/img-2.jpg","/project-3/slider/img-3.jpg","/project-3/slider/img-4.jpg","/project-3/slider/img-5.jpg"],
         stack:["HTML","CSS","Javascript","Figma"],
@@ -29,7 +29,7 @@ export const projects = [
     {
         pId:4,
         project_name:"project 4",
-        project_img:"/project/project-4.jpg",
+        project_img:"/project/project-4.webp",
         project_main_img:"/project-4/main.jpg",
         slider_imgs: ["/project-4/slider/img-1.jpg","/project-4/slider/img-2.jpg","/project-4/slider/img-3.jpg","/project-4/slider/img-4.jpg","/project-4/slider/img-5.jpg"],
         stack:["React","Node.js","Express.js","Prisma","PostgreSQL","Redis","Typescript"],

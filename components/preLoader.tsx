@@ -15,16 +15,18 @@ export default function PreLoader({onComplete}:{onComplete:()=>void}){
     const preLoaderRef = useRef<HTMLDivElement | null>(null)
     const navType = navTypeStore((state) => state.navType)
     useEffect (()=> {
-        document.documentElement.classList.add("no-scroll")
-        document.body.classList.add("no-scroll")
-        
-        window.scrollTo(0, 0)
-        gsap.set(preLoaderRef.current,{visibility:"visible"})
-        let split = SplitText.create("#loading",{type:"chars"})
-        const timeline = gsap.timeline({defaults: {ease:"power4.inOut"}})
-        const isMobile = window.innerWidth < 1000
-        
-        const updateCount = () => {
+        (async () => {
+            document.documentElement.classList.add("no-scroll")
+            document.body.classList.add("no-scroll")
+
+            window.scrollTo(0, 0)
+            await document.fonts.ready
+            await new Promise(res => requestAnimationFrame(res))
+            gsap.set(preLoaderRef.current,{visibility:"visible"})
+            let split = SplitText.create("#loading",{type:"chars"})
+            const timeline = gsap.timeline({defaults: {ease:"power4.inOut"}})
+            const isMobile = window.innerWidth < 1000
+            const updateCount = () => {
             let random = Math.floor((Math.random() * 10)) + 1 
             let delay = Math.floor((Math.random() * 200)) + 50
             currentCount += random
@@ -68,6 +70,7 @@ export default function PreLoader({onComplete}:{onComplete:()=>void}){
         }
         updateCount()
 
+        })()
     },[])
     return (
         <div  ref={preLoaderRef} className=" fixed inset-0 bg-foreground box-border flex flex-col justify-end z-99 overflow-hidden  ">
