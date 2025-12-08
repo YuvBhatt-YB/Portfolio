@@ -8,7 +8,9 @@ gsap.registerPlugin(SplitText)
 export default function About(){
     
     useGSAP(()=>{
-        
+        (async() => {
+        await document.fonts.ready
+        await new Promise(res => requestAnimationFrame(res))
         const texts = gsap.utils.toArray(".texts") as HTMLElement[]
         const texts2 = gsap.utils.toArray(".texts2") as HTMLElement[]
         const mainAboutTl = gsap.timeline({
@@ -84,6 +86,8 @@ export default function About(){
                 scrub:true
             }
         })
+        })()
+        
         
     },[])
     return(

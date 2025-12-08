@@ -9,7 +9,7 @@ gsap.registerPlugin(SplitText)
 export default function Heading(){
     const isLoaded = preLoaderStore(state => state.isLoaded)
     const navType = navTypeStore(state => state.navType)
-    useGSAP((context)=>{
+    useGSAP(async(context)=>{
         if(navType !== "initial") {
             gsap.set(["#f1","#f2",".small-txt"],{visibility:"visible"})
             return
@@ -18,7 +18,8 @@ export default function Heading(){
             gsap.set(["#f1","#f2",".small-txt"],{visibility:"hidden"})
             return
         }
-
+        await document.fonts.ready
+        await new Promise(res => requestAnimationFrame(res))
         const f1Text = SplitText.create("#f1",{type:"chars"})
         const f2Text = SplitText.create("#f2",{type:"chars"})
         gsap.set(["#f1","#f2",".small-txt"],{visibility:"visible"})

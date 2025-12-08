@@ -18,7 +18,9 @@ export default function ProjectHeader({projectTitle,projectStacks}:
         if(!isLoaded) {
             return
         }
-        
+        (async() => {
+        await document.fonts.ready
+        await new Promise(res => requestAnimationFrame(res))
         const projectTitleChars = SplitText.create(projectTitleRef.current,{type:"chars"})
         gsap.set([projectTitleRef.current,".stack"],{visibility:"visible"})
         gsap.set(projectTitleChars.chars,{y:400})
@@ -49,6 +51,9 @@ export default function ProjectHeader({projectTitle,projectStacks}:
         })
        
         timelineOne.play()
+
+        })()
+       
     },[isLoaded])
 
 
