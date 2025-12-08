@@ -23,8 +23,40 @@ export default function ProjectComponent(){
     const [images,setImages] = useState<HTMLElement[]>([])
     const mouse = useRef<HTMLDivElement>(null)
     const rootRef = useRef<HTMLDivElement>(null)
+    const running = useRef<boolean>(false)
     
+    const followImage = () => {
+        if(window.innerWidth < 1024) return
+        if(!imageContainer.current) return
+        const current = gsap.getProperty(imageContainer.current,"y") as number
+        const next = current + (targetY.current - current) * 0.1
+        gsap.set(imageContainer.current,{y: next})
+    }
+    const followMouse = () => {
+        if(window.innerWidth < 1024) return
+        if(!mouse.current) return
+        followerX.current += (mouseX.current - followerX.current) * 0.12
+        followerY.current += (mouseY.current - followerY.current) * 0.12
+        gsap.set(mouse.current,{
+            x:followerX.current + 45,
+            y:followerY.current + 10,
+            force3D:true
+        })
+    }
+    const startTicker = () => {
+        if(running.current) return
+        running.current = true
+        gsap.ticker.add(followImage)
+        gsap.ticker.add(followMouse)
 
+    }
+
+    const stopTicker = () => {
+        if(!running.current) return
+        running.current = false
+        gsap.ticker.remove(followImage)
+        gsap.ticker.remove(followMouse)
+    }
     
     const handleMove = (e: React.MouseEvent<HTMLDivElement>) => {
         if(!rootRef.current) return
@@ -37,6 +69,8 @@ export default function ProjectComponent(){
     }
     const handleEnter = () => {
         if(!imageContainer.current || !mouse.current) return
+
+        startTicker()
         
         gsap.set(imageContainer.current,{visibility:"visible"})
         gsap.to(mouse.current,{
@@ -53,6 +87,8 @@ export default function ProjectComponent(){
     const handleLeave = () => {
         if(!imageContainer.current || !mouse.current) return
         
+        stopTicker()
+
         gsap.to(mouse.current,{
             scale:0,
             duration:0.25,
@@ -64,45 +100,6 @@ export default function ProjectComponent(){
             ease:"circ.out"
         })
     }
-    useLayoutEffect(()=>{
-        if(!rootRef.current) return
-        const ctx = gsap.context(() => {
-            const mm = gsap.matchMedia()
-            mm.add("(min-width: 1024px)",()=>{
-            if(!imageContainer.current || !mouse.current) return
-            const followImage = () => {
-                if(!imageContainer.current) return
-                const current = gsap.getProperty(imageContainer.current,"y") as number
-                const next = current + (targetY.current - current) * 0.1
-                gsap.set(imageContainer.current,{y: next})
-            }
-            
-            const followMouse = () => {
-                if(!mouse.current) return
-                followerX.current += (mouseX.current - followerX.current) * 0.12
-                followerY.current += (mouseY.current - followerY.current) * 0.12
-                gsap.set(mouse.current,{
-                        x:followerX.current + 45,
-                        y:followerY.current + 10,
-                        force3D:true
-                })
-                
-            }
-            gsap.ticker.add(followImage)
-            gsap.ticker.add(followMouse)
-
-            return () => {
-                gsap.ticker.remove(followImage)
-                gsap.ticker.remove(followMouse)
-            }
-            })
-            return () => mm.revert()
-        },rootRef)
-        
-        return () => ctx.revert()
-
-        
-    },[])
     useLayoutEffect(()=>{
         if(!rootRef.current) return
 
@@ -230,7 +227,7 @@ export default function ProjectComponent(){
                     <div className=" w-full h-full  relative rounded-3xl ">
                         {projects.map((project,i) => (
                             <div key={i} className=" w-full h-full   absolute top-0 images rounded-3xl will-change-transform  backface-hidden ">
-                                <Image fill src={project.project_img}  alt="project image" className=" object-cover rounded-3xl" />
+                                <Image fill src={project.project_img}  alt="project image" className=" object-cover rounded-3xl" priority={i === 0} loading={i === 0 ? "eager" : "lazy"} />
                             </div>
                         ))}
                         
