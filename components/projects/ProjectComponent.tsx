@@ -148,42 +148,39 @@ export default function ProjectComponent(){
               const techStack =
                 container.parentElement?.querySelector(".tech-stack");
 
-              const topChars = SplitText.create(topTxt, { type: "chars" });
-              const bottomChars = SplitText.create(bottomTxt, {
-                type: "chars",
-              });
+              
+              if (!bottomTxt || !topTxt || !techStack) return;
 
-              if (!topChars || !bottomChars || !topTxt || !techStack) return;
-
-              const rect = topTxt.getBoundingClientRect();
-              const techRect = techStack.getBoundingClientRect();
-
-              const targetX = rect.left - techRect.left + rect.width + 30;
-
+              let topChars:any = null
+              let bottomChars:any = null
+              
               const timeline = gsap.timeline({ paused: true });
 
-              timeline
-                .to(topChars.chars, {
-                  yPercent: -100,
-                  duration: 0.3,
-                  stagger: {
-                    amount: 0.1,
-                    ease: "power1.inOut",
-                  },
-                })
-                .to(
-                  bottomChars.chars,
-                  {
-                    yPercent: -100,
-                    duration: 0.3,
-                    stagger: {
-                      amount: 0.1,
-                      ease: "power1.inOut",
-                    },
-                  },
-                  "-=0.2"
-                )
-                .to(
+              const initSplitTextandTimeline = async() => {
+                await document.fonts.ready
+
+                if(!topChars){
+                    topChars = SplitText.create(topTxt,{type:"chars"})
+                    bottomChars = SplitText.create(bottomTxt,{type:"chars"})
+                    const rect = topTxt.getBoundingClientRect();
+                    const techRect = techStack.getBoundingClientRect();
+
+                    const targetX = rect.left - techRect.left + rect.width + 30;
+                    timeline.to(topChars.chars, {
+                        yPercent: -100,
+                        duration: 0.3,
+                        stagger: {
+                            amount: 0.1,
+                            ease: "power1.inOut",
+                        },
+                    }).to(bottomChars.chars,{
+                        yPercent: -100,
+                        duration: 0.3,
+                        stagger: {
+                            amount: 0.1,
+                            ease: "power1.inOut",
+                        },
+                    },"-=0.2").to(
                   techStack,
                   {
                     x: targetX,
@@ -193,10 +190,12 @@ export default function ProjectComponent(){
                   },
                   "-=0.2"
                 );
-
-              const handlePlay = () => {
+                }
+              }
+              const handlePlay = async() => {
+                await initSplitTextandTimeline()
                 setIndex(i);
-                timeline.play();
+                requestAnimationFrame(() => timeline.play());
               };
               const handleRemove = () => {
                 timeline.reverse();
