@@ -86,8 +86,8 @@ export default function Heading(){
                         <div className=" noise-square absolute inset-0"></div>
                     </div>
                 </div>
-                <div className=" relative overflow-hidden pb-5  md:pb-[clamp(20px,1vw,40px)] lg:pb-[clamp(10px,3vw,56px)]  m-0 -ml-1.5 sm:-ml-2.5 md:-ml-3 lg:-ml-[clamp(10px,1.5vw,24px)] "  >
-                    <span id="f2" className=" font-striper  text-[clamp(4rem,13vw,14.375rem)]  leading-16 sm:leading-24  md:leading-32 lg:leading-extra     invisible  overflow-hidden" >Developer.</span>
+                <div className=" relative overflow-hidden pb-5  md:pb-[clamp(20px,1vw,40px)] lg:pb-[clamp(10px,3vw,56px)]  m-0 -ml-1 sm:-ml-1 md:-ml-1.5 lg:-ml-[clamp(8px,0.6vw,24px)] "  >
+                    <span id="f2" className=" font-switzer font-bold  text-[clamp(4rem,13vw,16rem)]  leading-16 sm:leading-24  md:leading-32 lg:leading-extra     invisible  overflow-hidden" >Developer</span>
                     <span
                             aria-hidden="true"
                             className="pointer-events-none absolute inset-0 noise-overlay"
